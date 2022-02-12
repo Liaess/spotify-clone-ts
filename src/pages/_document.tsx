@@ -1,4 +1,4 @@
-import Document, { DocumentContext, Html } from "next/document";
+import Document, { DocumentContext } from "next/document";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -6,5 +6,4 @@ export default class MyDocument extends Document {
 
     return initialProps;
   }
-
 }

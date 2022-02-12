@@ -3,7 +3,7 @@
     "node": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": ["eslint:recommended", "next"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
