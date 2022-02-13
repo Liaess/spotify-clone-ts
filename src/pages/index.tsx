@@ -2,11 +2,13 @@ import styled from "styled-components";
 import Logo from "@/assets/Icon.png";
 import { getProviders, signIn } from "next-auth/react";
 import React from "react";
+import { SpotifyProvider } from "@/types/providers/spotify";
 
-export default function IndexPage({ providers }: any) {
+export default function IndexPage({ spotify }: SpotifyProvider) {
   async function handleLogin(e: React.MouseEvent) {
     e.preventDefault();
-    await signIn(providers.id, { callbackUrl: "/music" });
+    
+    await signIn(spotify.id, { callbackUrl: "/music" });
   }
 
   return (
@@ -19,10 +21,9 @@ export default function IndexPage({ providers }: any) {
 
 export async function getServerSideProps() {
   const { spotify }: any = await getProviders();
-
   return {
     props: {
-      providers: spotify,
+      spotify,
     },
   };
 }
