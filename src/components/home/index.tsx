@@ -14,7 +14,7 @@ const Container = styled.div`
   color: var(--white-color);
   header {
     margin-top: 15px;
-    margin-right: 50px;
+    margin-right: 30px;
     display: flex;
     flex-direction: column;
     align-items: end;

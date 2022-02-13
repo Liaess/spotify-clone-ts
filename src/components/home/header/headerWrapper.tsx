@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   header {
     position: absolute;
-    right: 60px;
+    right: 0;
   }
 `;
 
