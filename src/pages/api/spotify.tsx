@@ -19,5 +19,4 @@ export const NEXT_LOGIN_URL = "https://accounts.spotify.com/authorize";
 export const spotifyApi = new SpotifyWebApi({
   clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
   clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
-  redirectUri: `${process.env.NEXT_BASE_URL}/music`,
 });

@@ -14,10 +14,13 @@
   "plugins": ["react"],
   "rules": {
     "@next/next/no-img-element": "off",
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
     "react/react-in-jsx-scope": "off",
-    "react-hooks/exhaustive-deps": "off",
-    "react-hooks/rules-of-hooks": "off",
-    "react/prop-types": "off",
     "indent": ["error", 2],
     "linebreak-style": 0,
     "quotes": ["error", "double"],

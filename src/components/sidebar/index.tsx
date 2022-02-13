@@ -5,39 +5,46 @@ import {
   HeartIcon,
 } from "@heroicons/react/outline";
 import { Container } from "@/components/sidebar/sidebarWrapper";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useApi } from "@/hooks/useApi";
 
 export default function Sidebar() {
+  const { data: session } = useSession();
+  const [playlists, setPlaylists] = useState<any[]>([]);
+
+  useEffect(() => {
+    const spotifyApi = new useApi().connectSpotify(session);
+    if (spotifyApi.getAccessToken()) {
+      spotifyApi.getUserPlaylists().then(({ body }) => {
+        //@ts-ignore
+        setPlaylists(body.items);
+      });
+    }
+  }, [session]);
+
   return (
     <>
       <Container>
         <button>
           <HomeIcon className="icons" />
-          <p>Home</p>
+          <span>Home</span>
         </button>
         <button>
           <SearchIcon className="icons" />
-          <p>Search</p>
+          <span>Search</span>
         </button>
         <button>
           <LibraryIcon className="icons" />
-          <p>Your Library</p>
+          <span>Your Library</span>
         </button>
         <button>
           <HeartIcon className="icons" />
-          <p>Liked Songs</p>
+          <span>Liked Songs</span>
         </button>
         <hr />
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
-        <p>Playlist name...</p>
+        {playlists &&
+          playlists.map((playlist) => <p key={playlist.id}>{playlist.name}</p>)}
       </Container>
     </>
   );

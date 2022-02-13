@@ -6,19 +6,32 @@ export const Container = styled.div`
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: var(--main-font-color);
+  overflow-y: scroll;
+  background-color: var(--main-sidebar-color);
+  border-right: 1px solid var(--secundary-background-color);
+  ::-webkit-scrollbar {
+    display: none;
+  }
   button {
     display: flex;
     align-items: center;
     border: none;
-    background-color: var(--main-background-color);
+    background-color: inherit;
     width: 100%;
+    padding-top: 1.25rem;
     .icons {
       height: 1.25rem;
       width: 1.25rem;
     }
+    span {
+      padding-left: 7px;
+    }
   }
   hr {
-    border-top: 0.1px solid #111827;
+    border-top: 0.1px solid var(--secundary-background-color);
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
     margin-top: 1rem;
   }
   p {

@@ -2,10 +2,12 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 :root {
-    --main-background-color: #191414;
+    --main-background-color: 	#181818;
+    --main-sidebar-color: #000000;
     --main-font-color: #6b7280;
     --main-login-button-color: #1DB954;
-    --white-color: #ffffff;
+    --white-color: #fff;
+    --secundary-background-color: #484848;
   }
 *,
 *::before,

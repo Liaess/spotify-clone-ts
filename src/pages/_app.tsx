@@ -1,11 +1,14 @@
 import GlobalStyle from "@/styles/GlobalStyles";
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
-      <GlobalStyle />
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
   );
 }
