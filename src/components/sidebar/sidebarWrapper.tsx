@@ -19,6 +19,10 @@ export const Container = styled.div`
     background-color: inherit;
     width: 100%;
     padding-top: 1.25rem;
+    cursor: pointer;
+    :hover {
+      color: var(--white-color);
+    }
     .icons {
       height: 1.25rem;
       width: 1.25rem;
