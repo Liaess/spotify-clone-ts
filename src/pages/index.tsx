@@ -11,7 +11,7 @@ export default function IndexPage({ providers }: any) {
 
   return (
     <Main>
-      <img src={Logo.src}></img>
+      <img src={Logo.src} alt="Spotify Logo"></img>
       <button onClick={(e) => handleLogin(e)}>Login with Spotify</button>
     </Main>
   );

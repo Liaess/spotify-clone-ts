@@ -16,8 +16,6 @@ async function refreshAcessToken(token: any) {
       refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
     };
   } catch (err) {
-    console.log(err);
-
     return {
       ...token,
       errorMessage: "RefreshTokenError",
