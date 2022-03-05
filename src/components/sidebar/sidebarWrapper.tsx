@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  max-width: 12rem;
   height: 100vh;
+  display: none;
   padding: 1.25rem;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   line-height: 1.25rem;
   color: var(--main-font-color);
   overflow-y: scroll;
@@ -45,5 +47,12 @@ export const Container = styled.div`
     :hover {
       color: var(--white-color);
     }
+  }
+  @media (min-width: 768px) {
+    display: inline;
+  }
+  @media (min-width: 1024px) {
+    font-size: 0.875rem;
+    max-width: 15rem;
   }
 `;

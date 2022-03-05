@@ -42,19 +42,18 @@ export default NextAuth({
     signIn: "/",
   },
   callbacks: {
-    //@ts-ignore
     async jwt({ token, user, account }) {
       if (account && user) {
         return {
           ...token,
           accessToken: account.access_token,
-          accessTokenExpires: account.expires_at! * 1000,
+          accessTokenExpires: Date.now() + account.expires_at * 1000,
           refreshToken: account.refresh_token,
           username: account.providerAccountId,
           user,
         };
       }
-      //@ts-ignore
+
       if (Date.now() < token.accessTokenExpires) {
         return token;
       }
@@ -64,7 +63,7 @@ export default NextAuth({
 
     async session({ session, token }) {
       //@ts-ignore
-      session.user.accessToken = token.username;
+      session.user.username = token.username;
       //@ts-ignore
       session.user.accessToken = token.accessToken;
       //@ts-ignore

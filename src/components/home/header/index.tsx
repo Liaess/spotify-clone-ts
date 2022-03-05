@@ -1,17 +1,31 @@
 import LogoutBtn from "@/components/home/logoutBtn";
-import { useState } from "react";
-import { Container, UserInfomation } from "./headerWrapper";
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  UserInfomation,
+  TitleHolder,
+  DescriptionHolder,
+} from "./headerWrapper";
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import styled from "styled-components";
+import { IPlaylistInformation } from "@/types/providers/spotify";
+interface HeaderProps {
+  playlistInfomation: IPlaylistInformation | null;
+}
 
-export default function Header() {
+export default function Header({ playlistInfomation }: HeaderProps) {
+  // const randomColor = Math.floor(Math.random() * 16777215).toString(16);
   const { data: session } = useSession();
-  const [showMenu, setShowMenu] = useState(false);
-  // const [color, setColor] = useState(null);
+  const [color, setColor] = useState<string>("");
+  const [showMenu, setShowMenu] = useState<boolean>(false);
+  console.log(playlistInfomation);
+
+  useEffect(() => {
+    setColor(Math.floor(Math.random() * 16777215).toString(16));
+  }, []);
 
   return (
-    <Container>
+    <Container color={color}>
       <header onClick={() => setShowMenu(!showMenu)}>
         <UserInfomation>
           <img src={session?.user?.image!} alt="user-logo" />
@@ -21,21 +35,16 @@ export default function Header() {
         <div>{showMenu && <LogoutBtn />}</div>
       </header>
       <TitleHolder>
-        <h1>hello</h1>
+        <img
+          src={playlistInfomation?.images[0]?.url}
+          alt="playlist-image"
+        ></img>
+        <DescriptionHolder>
+          <p>PLAYLIST</p>
+          <h1>{playlistInfomation?.name}</h1>
+          <span>{playlistInfomation?.description}</span>
+        </DescriptionHolder>
       </TitleHolder>
     </Container>
   );
 }
-
-const TitleHolder = styled.div`
-  height: 40vh;
-  display: flex;
-  align-items: end;
-  color: red;
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(9, 9, 121, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
-`;

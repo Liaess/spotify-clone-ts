@@ -7,7 +7,6 @@ export default function Loading() {
       <Container>
         <TailSpin color="var(--white-color)" height={100} width={100} />
       </Container>
-      ;
     </>
   );
 }
