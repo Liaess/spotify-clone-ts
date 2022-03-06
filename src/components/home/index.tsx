@@ -6,15 +6,15 @@ import { useContext, useEffect, useState } from "react";
 import { useApi } from "@/hooks/useApi";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import { IPlaylistInformation } from "@/types/providers/spotify";
 import Loading from "../loading";
+import { SinglePlaylistResponse } from "@/types/pageProps";
 
 export default function Home() {
   const { data: session } = useSession();
   const { playlistId } = useContext(PlaylistContext);
   const [isLoading, setIsLoading] = useState(true);
   const [playlistInfomation, setPlaylistInfomation] =
-    useState<IPlaylistInformation | null>(null);
+    useState<SinglePlaylistResponse | null>(null);
 
   useEffect(() => {
     if (playlistId === null) return;

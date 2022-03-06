@@ -8,17 +8,12 @@ import {
 } from "./headerWrapper";
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import { IPlaylistInformation } from "@/types/providers/spotify";
-interface HeaderProps {
-  playlistInfomation: IPlaylistInformation | null;
-}
+import { HeaderProps } from "@/types/pageProps";
 
 export default function Header({ playlistInfomation }: HeaderProps) {
-  // const randomColor = Math.floor(Math.random() * 16777215).toString(16);
   const { data: session } = useSession();
   const [color, setColor] = useState<string>("");
   const [showMenu, setShowMenu] = useState<boolean>(false);
-  console.log(playlistInfomation);
 
   useEffect(() => {
     setColor(Math.floor(Math.random() * 16777215).toString(16));
