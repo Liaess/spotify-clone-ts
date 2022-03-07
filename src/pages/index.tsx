@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Logo from "@/assets/Icon.png";
 import { getProviders, signIn } from "next-auth/react";
 import React from "react";
-import { SpotifyProvider } from "@/types/providers/spotify";
+import { SpotifyProvider } from "@/types/providers";
 
 export default function IndexPage({ spotify }: SpotifyProvider) {
   async function handleLogin(e: React.MouseEvent) {

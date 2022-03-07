@@ -40,21 +40,41 @@ export const TitleHolder = styled.div`
   display: flex;
   align-items: end;
   color: var(--white-color);
+  padding-bottom: 2rem;
   img {
     padding-left: 20px;
     object-fit: cover;
     height: 13rem;
     width: 13rem;
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    @media (max-width: 460px) {
+      display: none;
+    }
+  }
+  .temporary-image {
+    object-fit: contain;
   }
 `;
 
 export const DescriptionHolder = styled.div`
   padding-left: 20px;
+  cursor: default;
   p {
-    font-size: 0.7rem;
+    padding-top: 8px;
+    font-size: 0.9rem;
+    .user {
+      color: inherit;
+      font-weight: bold;
+    }
+    .dot {
+      color: inherit;
+    }
   }
   h1 {
+    padding-top: 8px;
+    font-size: 0.7rem;
+  }
+  h2 {
     font-size: 3rem;
     font-weight: bold;
   }

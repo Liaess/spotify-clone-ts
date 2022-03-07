@@ -25,35 +25,33 @@ export default function Sidebar() {
   }, [session]);
 
   return (
-    <>
-      <Container>
-        <button>
-          <HomeIcon className="icons" />
-          <span>Home</span>
-        </button>
-        <button>
-          <SearchIcon className="icons" />
-          <span>Search</span>
-        </button>
-        <button>
-          <LibraryIcon className="icons" />
-          <span>Your Library</span>
-        </button>
-        <button>
-          <HeartIcon className="icons" />
-          <span>Liked Songs</span>
-        </button>
-        <hr />
-        {userPlaylists &&
-          userPlaylists.map((userPlaylist) => (
-            <p
-              onClick={() => setPlaylistId(userPlaylist.id)}
-              key={userPlaylist.id}
-            >
-              {userPlaylist.name}
-            </p>
-          ))}
-      </Container>
-    </>
+    <Container>
+      <button>
+        <HomeIcon className="icons" />
+        <span>Home</span>
+      </button>
+      <button>
+        <SearchIcon className="icons" />
+        <span>Search</span>
+      </button>
+      <button>
+        <LibraryIcon className="icons" />
+        <span>Your Library</span>
+      </button>
+      <button>
+        <HeartIcon className="icons" />
+        <span>Liked Songs</span>
+      </button>
+      <hr />
+      {userPlaylists &&
+        userPlaylists.map((userPlaylist) => (
+          <p
+            onClick={() => setPlaylistId(userPlaylist.id)}
+            key={userPlaylist.id}
+          >
+            {userPlaylist.name}
+          </p>
+        ))}
+    </Container>
   );
 }

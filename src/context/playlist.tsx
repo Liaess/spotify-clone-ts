@@ -1,7 +1,6 @@
 import React, { createContext } from "react";
-import { ChildrenProps } from "@/types/context/children";
-import { IPlaylistContext } from "@/types/context/playlist";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { ChildrenProps, IPlaylistContext } from "@/types/context";
 
 const PlaylistContext = createContext({} as IPlaylistContext);
 

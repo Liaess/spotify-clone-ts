@@ -2,8 +2,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   max-width: 12rem;
+  min-height: 100vh;
   height: 100vh;
   display: none;
+  position: fixed;
   padding: 1.25rem;
   font-size: 0.75rem;
   line-height: 1.25rem;
@@ -53,6 +55,6 @@ export const Container = styled.div`
   }
   @media (min-width: 1024px) {
     font-size: 0.875rem;
-    max-width: 15rem;
+    min-width: 15rem;
   }
 `;

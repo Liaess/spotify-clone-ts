@@ -1,35 +1,15 @@
+import Songs from "@/components/songs";
 import styled from "styled-components";
+import { PageProps } from "@/types/pageProps";
 
-export default function Center() {
+export default function Center({ playlistInfomation }: PageProps) {
   return (
     <Container>
-      <div>
-        <p>#</p>
-        <p>TITLE</p>
-        <p>ALBUM</p>
-        <p>DATE ADDED</p>
-        <p>clock**</p>
-      </div>
-      {/* <div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div>
-      </div>
-      <div>a</div>
-      <div>a</div>
-      <div>aa</div>
-      <div>a</div> */}
+      <Songs playlistInfomation={playlistInfomation} />
     </Container>
   );
 }
 
 const Container = styled.div`
   margin: 0px 30px;
-  div {
-    display: flex;
-    width: 100%;
-    background-color: red;
-  }
 `;

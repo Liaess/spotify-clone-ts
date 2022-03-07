@@ -33,16 +33,18 @@ export default function Home() {
   }, [playlistId, session]);
 
   return (
-    <Container>
+    <>
       {isLoading ? (
-        <Loading />
+        <LoadingContainer>
+          <Loading />
+        </LoadingContainer>
       ) : (
-        <>
+        <Container>
           <Header playlistInfomation={playlistInfomation} />
-          <Center />
-        </>
+          <Center playlistInfomation={playlistInfomation} />
+        </Container>
       )}
-    </Container>
+    </>
   );
 }
 
@@ -50,10 +52,24 @@ const Container = styled.div`
   flex-grow: 1;
   color: var(--white-color);
   header {
-    margin-top: 15px;
-    margin-right: 30px;
     display: flex;
     flex-direction: column;
     align-items: end;
+    margin-top: 15px;
+    margin-right: 30px;
   }
+  @media (min-width: 768px) {
+    padding-left: 12rem;
+  }
+  @media (min-width: 1024px) {
+    padding-left: 15rem;
+  }
+`;
+
+const LoadingContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
