@@ -5,6 +5,13 @@ import Song from "../song";
 export default function Songs({ playlistInfomation }: PageProps) {
   return (
     <Container>
+      <Filters>
+        <p>#</p>
+        <p>TITLE</p>
+        <p>ALBUM</p>
+        <p>DATE ADDED</p>
+        <p>***</p>
+      </Filters>
       {playlistInfomation?.tracks.items.map((track, index) => (
         <Song key={track.track.id} {...track} counter={index} />
       ))}
@@ -13,5 +20,9 @@ export default function Songs({ playlistInfomation }: PageProps) {
 }
 
 const Container = styled.div`
-  color: red;
+  padding-top: 20px;
+`;
+
+const Filters = styled.div`
+  display: flex;
 `;
