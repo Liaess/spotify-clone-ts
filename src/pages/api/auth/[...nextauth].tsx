@@ -15,6 +15,8 @@ async function refreshAcessToken(token: any) {
       refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
     };
   } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
     return {
       ...token,
       errorMessage: "RefreshTokenError",
@@ -47,7 +49,7 @@ export default NextAuth({
         return {
           ...token,
           accessToken: account.access_token,
-          accessTokenExpires: Date.now() + account.expires_at * 1000,
+          accessTokenExpires: account.expires_at,
           refreshToken: account.refresh_token,
           username: account.providerAccountId,
           user,

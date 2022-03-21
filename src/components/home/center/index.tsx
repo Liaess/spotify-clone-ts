@@ -11,5 +11,5 @@ export default function Center({ playlistInfomation }: PageProps) {
 }
 
 const Container = styled.div`
-  margin: 0px 30px;
+  margin: 0px 20px;
 `;

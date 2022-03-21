@@ -8,11 +8,21 @@ const GlobalStyle = createGlobalStyle`
     --main-login-button-color: #1DB954;
     --white-color: #fff;
     --secundary-background-color: #484848;
+    --scrollbar-background-color: rgba(90, 90, 90);
   }
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+  overflow: overlay;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-background-color);
 }
 
 body,
@@ -40,6 +50,7 @@ html:focus-within {
 body {
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
+  overflow: overlay;
 }
 
 a:not([class]) {

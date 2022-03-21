@@ -5,6 +5,7 @@ export interface SinglePlaylistResponse
   extends SpotifyApi.SinglePlaylistResponse {}
 
 export interface PlaylistTrack extends SpotifyApi.PlaylistTrackObject {
+  added_at: string;
   counter: number;
 }
 

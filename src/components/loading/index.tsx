@@ -15,4 +15,11 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-left: 12rem;
+  @media (min-width: 1024px) {
+    padding-left: 15rem;
+  }
+  @media (max-width: 768px) {
+    padding-left: 0rem;
+  }
 `;

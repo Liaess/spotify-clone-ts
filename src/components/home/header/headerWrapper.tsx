@@ -18,7 +18,7 @@ export const UserInfomation = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  border-radius: 15px;
+  border-radius: 18px;
   :hover {
     opacity: 80%;
     cursor: pointer;

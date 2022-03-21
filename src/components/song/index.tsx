@@ -1,57 +1,43 @@
 import { PlaylistTrack } from "@/types/pageProps";
-import styled from "styled-components";
+import { singleDurationToMilliseconds } from "@/utils/time";
+import moment from "moment";
+import {
+  Container,
+  ImageHolder,
+  DescriptionHolder,
+  ArtistHolder,
+  AlbumHolder,
+  AddedHolder,
+  DurationHolder,
+} from "./songWrapper";
 
-export default function Song({ track, counter }: PlaylistTrack) {
+export default function Song({ track, counter, added_at }: PlaylistTrack) {
   return (
     <Container>
-      <p>{counter + 1}</p>
-      <img src={track.album.images[0].url} alt="album-logo" />
-      <DescriptionHolder>
-        <p>{track.name}</p>
-        <ArtistHolder>
-          {track.artists.map((artist, index) => {
-            if (index + 1 === track.artists.length) {
-              return <p key={artist.id}>{artist.name}</p>;
-            } else {
+      <ImageHolder>
+        <span>{counter + 1}</span>
+        <img src={track.album.images[0].url} alt="album-logo" />
+        <DescriptionHolder>
+          <p>{track.name}</p>
+          <ArtistHolder>
+            {track.artists.map((artist, index) => {
+              if (index + 1 === track.artists.length) {
+                return <p key={artist.id}>{artist.name}</p>;
+              }
               return <p key={artist.id}>{artist.name},</p>;
-            }
-          })}
-        </ArtistHolder>
-      </DescriptionHolder>
+            })}
+          </ArtistHolder>
+        </DescriptionHolder>
+      </ImageHolder>
+      <AlbumHolder>
+        <p>{track.album.name}</p>
+      </AlbumHolder>
+      <AddedHolder>
+        <p>{moment(added_at).format("MMM DD, YYYY")}</p>
+      </AddedHolder>
+      <DurationHolder>
+        <p>{singleDurationToMilliseconds(track.duration_ms)}</p>
+      </DurationHolder>
     </Container>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  height: 65px;
-  gap: 14px;
-  border-radius: 3px;
-  cursor: default;
-  img {
-    width: 50px;
-    height: 50px;
-  }
-  :hover {
-    background-color: var(--secundary-background-color);
-    p {
-      color: var(--white-color);
-    }
-  }
-`;
-
-const DescriptionHolder = styled.div``;
-
-const ArtistHolder = styled.div`
-  display: flex;
-  p {
-    padding-top: 4px;
-    font-size: 0.9rem;
-    color: lightgray;
-    cursor: pointer;
-    :hover {
-      text-decoration: underline;
-    }
-  }
-`;
