@@ -7,7 +7,11 @@ import { SpotifyProvider } from "@/types/providers";
 export default function IndexPage({ spotify }: SpotifyProvider) {
   async function handleLogin(e: React.MouseEvent) {
     e.preventDefault();
-    await signIn(spotify.id);
+    try {
+      await signIn(spotify.id, { callbackUrl: "/music" });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
