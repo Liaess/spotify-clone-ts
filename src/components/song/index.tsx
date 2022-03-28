@@ -1,6 +1,10 @@
+import SongContext from "@/context/playlist";
+import { useApi } from "@/hooks/useApi";
 import { PlaylistTrack } from "@/types/pageProps";
 import { singleDurationToMilliseconds } from "@/utils/time";
 import moment from "moment";
+import { useSession } from "next-auth/react";
+import { useContext } from "react";
 import {
   Container,
   ImageHolder,
@@ -12,8 +16,22 @@ import {
 } from "./songWrapper";
 
 export default function Song({ track, counter, added_at }: PlaylistTrack) {
+  const { data: session } = useSession();
+  const { setCurrentTrackId, setIsPlaying } = useContext(SongContext);
+  
+  function playSong() {
+    setIsPlaying(true);
+    setCurrentTrackId(track.id);
+    const spotifyApi = new useApi().connectSpotify(session);
+    if (spotifyApi.getAccessToken()) {
+      spotifyApi.play({
+        uris: [track.uri],
+      });
+    }
+  }
+
   return (
-    <Container>
+    <Container onClick={playSong}>
       <ImageHolder>
         <span>{counter + 1}</span>
         <img src={track.album.images[0].url} alt="album-logo" />

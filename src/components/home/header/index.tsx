@@ -1,5 +1,5 @@
 import LogoutBtn from "@/components/home/logoutBtn";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Container,
   UserInfomation,
@@ -11,15 +11,17 @@ import { useSession } from "next-auth/react";
 import { PageProps } from "@/types/pageProps";
 import Logo from "@/assets/Icon.png";
 import { arrayDurationToMilliseconds } from "@/utils/time";
+import SongContext from "@/context/playlist";
 
 export default function Header({ playlistInfomation }: PageProps) {
   const { data: session } = useSession();
   const [color, setColor] = useState<string>("");
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const { playlistId } = useContext(SongContext);
 
   useEffect(() => {
     setColor(((Math.random() * 0xffffff) << 0).toString(16));
-  }, []);
+  }, [playlistId]);
 
   return (
     <Container color={color}>

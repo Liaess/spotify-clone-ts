@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Center from "./center";
 import Header from "./header";
-import PlaylistContext from "@/context/playlist";
+import SongContext from "@/context/playlist";
 import { useContext, useEffect, useState } from "react";
 import { useApi } from "@/hooks/useApi";
 import { useSession } from "next-auth/react";
@@ -11,7 +11,7 @@ import { SinglePlaylistResponse } from "@/types/pageProps";
 
 export default function Home() {
   const { data: session } = useSession();
-  const { playlistId } = useContext(PlaylistContext);
+  const { playlistId } = useContext(SongContext);
   const [isLoading, setIsLoading] = useState(true);
   const [playlistInfomation, setPlaylistInfomation] =
     useState<SinglePlaylistResponse | null>(null);

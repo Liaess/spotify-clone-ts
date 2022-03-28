@@ -8,12 +8,12 @@ import { Container } from "@/components/sidebar/sidebarWrapper";
 import { useContext, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useApi } from "@/hooks/useApi";
-import PlaylistContext from "@/context/playlist";
+import SongContext from "@/context/playlist";
 
 export default function Sidebar() {
   const { data: session } = useSession();
   const [userPlaylists, setUserPlaylists] = useState<any[]>([]);
-  const { setPlaylistId } = useContext(PlaylistContext);
+  const { setPlaylistId } = useContext(SongContext);
 
   useEffect(() => {
     const spotifyApi = new useApi().connectSpotify(session);

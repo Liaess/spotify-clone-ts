@@ -1,19 +1,21 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { ChildrenProps, IPlaylistContext } from "@/types/context";
+import { ChildrenProps, ISongContext } from "@/types/context";
 
-const PlaylistContext = createContext({} as IPlaylistContext);
+const SongContext = createContext({} as ISongContext);
 
-function PlaylistProvider({ children }: ChildrenProps) {
+function SongProvider({ children }: ChildrenProps) {
   const [playlistId, setPlaylistId] = useLocalStorage("playlistId", null);
+  const [currentTrackId, setCurrentTrackId] = useLocalStorage("currentTrack", null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <PlaylistContext.Provider value={{ playlistId, setPlaylistId }}>
+    <SongContext.Provider value={{ playlistId, setPlaylistId, currentTrackId, setCurrentTrackId, isPlaying, setIsPlaying }}>
       {children}
-    </PlaylistContext.Provider>
+    </SongContext.Provider>
   );
 }
 
-export default PlaylistContext;
+export default SongContext;
 
-export { PlaylistProvider };
+export { SongProvider };
