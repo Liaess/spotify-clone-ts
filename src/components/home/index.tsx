@@ -15,7 +15,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [playlistInfomation, setPlaylistInfomation] =
     useState<SinglePlaylistResponse | null>(null);
-
+    
   useEffect(() => {
     if (playlistId === null) return;
     const spotifyApi = new useApi().connectSpotify(session);
@@ -23,6 +23,7 @@ export default function Home() {
       spotifyApi
         .getPlaylist(playlistId)
         .then(({ body }) => {
+          console.log(body.description);
           setPlaylistInfomation(body);
           setIsLoading(false);
         })

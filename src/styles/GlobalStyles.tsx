@@ -51,6 +51,7 @@ body {
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
   overflow: overlay;
+  position: relative;
 }
 
 a:not([class]) {

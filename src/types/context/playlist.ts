@@ -1,3 +1,6 @@
+/* global SpotifyApi */
+import "spotify-web-api-node";
+
 export interface ISongContext {
   playlistId: string;
   setPlaylistId: Function;
@@ -5,4 +8,6 @@ export interface ISongContext {
   setCurrentTrackId: Function;
   isPlaying: boolean;
   setIsPlaying: Function;
+  currentSongInfomation: SpotifyApi.TrackObjectFull | null;
+  setCurrentSongInformation: Function;
 }
