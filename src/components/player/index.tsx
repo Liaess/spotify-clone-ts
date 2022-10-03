@@ -63,10 +63,6 @@ export default function Player({ currentSongInfomation }: PlayerProps) {
     spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
       if (body.is_playing) {
         spotifyApi.skipToPrevious();
-      } else {
-        spotifyApi.skipToPrevious();
-        spotifyApi.play();
-        setIsPlaying(true);
       }
     });
   }
