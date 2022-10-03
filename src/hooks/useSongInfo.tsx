@@ -9,13 +9,19 @@ export default function useSongInfo() {
   const { currentTrackId, setIsPlaying } = useContext(SongContext);
   const [songInfo, setSongInfo] = useState<CurrentSong | null>(null);
 
-  useEffect(() => {
+  function fetchSongInfo() {
     const spotifyApi = new useApi().connectSpotify(session);
-    const response = spotifyApi.getMyCurrentPlayingTrack();
-    response.then(({ body }) => {
+    spotifyApi.getMyCurrentPlayingTrack().then(({ body }) => {
       setSongInfo(body);
-      setIsPlaying(true);
     });
+    spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
+      setIsPlaying(body?.is_playing);
+    });
+  }
+
+  useEffect(() => {
+    fetchSongInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrackId, session, setIsPlaying]);
 
   return songInfo;

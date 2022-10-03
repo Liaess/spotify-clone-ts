@@ -14,9 +14,7 @@ export default function MainPage() {
         <Sidebar />
         <Home />
       </Container>
-      {currentSongInfomation && (
-        <Player currentSongInfomation={currentSongInfomation} />
-      )}
+      <Player currentSongInfomation={currentSongInfomation} />
     </Main>
   );
 }

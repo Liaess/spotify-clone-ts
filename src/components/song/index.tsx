@@ -16,23 +16,29 @@ import {
   DurationHolder,
 } from "./songWrapper";
 
-export default function Song({ track, counter, added_at }: PlaylistTrack) {
+export default function Song({
+  track,
+  counter,
+  added_at,
+  allSongs,
+}: PlaylistTrack) {
   const { data: session } = useSession();
-  const { setCurrentTrackId, setIsPlaying } =
-    useContext(SongContext);
+  const { setCurrentTrackId, setIsPlaying } = useContext(SongContext);
 
   function playSong() {
-    setIsPlaying(true);
     const spotifyApi = new useApi().connectSpotify(session);
+    const songsToPlay = allSongs.slice(counter);
+    const uris = songsToPlay.map((song) => song.track.uri);
     spotifyApi
       .getMyDevices()
       .then(({ body }) => {
         body.devices.forEach((device) => {
           if (device.is_active && spotifyApi.getAccessToken()) {
             spotifyApi.play({
-              uris: [track.uri],
+              uris,
             });
             setCurrentTrackId(track.id);
+            setIsPlaying(true);
           }
         });
       })
@@ -42,7 +48,7 @@ export default function Song({ track, counter, added_at }: PlaylistTrack) {
   }
 
   return (
-    <Container onDoubleClick={playSong}>
+    <Container onDoubleClick={() => playSong()}>
       <ImageHolder>
         <span>{counter + 1}</span>
         <img src={track.album.images[0].url} alt="album-logo" />
