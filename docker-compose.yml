@@ -1,0 +1,21 @@
+version: '3.4'
+services:
+  spotify-clone-ts:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: spotify-clone-ts
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    working_dir: /usr/src/spotify-clone-ts
+    command: bash -c "npm run dev"
+    volumes:
+      - .:/usr/src/spotify-clone-ts
