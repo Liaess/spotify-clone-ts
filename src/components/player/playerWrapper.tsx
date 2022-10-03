@@ -43,13 +43,13 @@ export const PlayerContainer = styled.div`
 export const LeftControls = styled.div`
   display: flex;
   align-items: center;
-  min-width: 300px;
   height: 100%;
-  padding-left: 20px;
+  min-width: 100px;
   & div {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-height: 100px;
     p {
       margin-left: 10px;
       cursor: pointer;
@@ -62,6 +62,19 @@ export const LeftControls = styled.div`
       margin-top: 3px;
       color: var(--main-font-color);
     }
+  }
+  img {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    min-width: 300px;
+    padding-left: 20px;
+    img {
+      display: block;
+    }
+  }
+  @media(max-width: 480px) {
+    min-width: 100px;
   }
 `;
 
@@ -76,5 +89,19 @@ export const CenterControls = styled.div`
 export const RightControls = styled.div`
   display: flex;
   align-items: center;
-  padding-right: 20px;
+  gap: 0px;
+  input {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    display: flex;
+    gap: 0px;
+    input {
+      display: block;
+    }
+  }
+  @media(min-width: 480px) {
+    padding-right: 20px;
+    gap: 20px;
+  }
 `;

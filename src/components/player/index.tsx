@@ -78,6 +78,7 @@ export default function Player({ currentSongInfomation }: PlayerProps) {
     if (volume < 0) setVolume(0);
   }, [volume]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const adjustVolume = useCallback( 
     debounce((volume) => {
       spotifyApi.setVolume(volume);
