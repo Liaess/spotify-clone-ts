@@ -5,10 +5,10 @@ import Song from "../song";
 import { Container } from "./songsWrapper";
 
 export default function Songs({ playlistInfomation }: PageProps) {
-  const { currentSongInfomation } = useContext(SongContext);
+  const { isPlaying } = useContext(SongContext);
 
   return (
-    <Container currentSongInfomation={currentSongInfomation}>
+    <Container isPlaying={isPlaying}>
       {playlistInfomation?.tracks.items.map((track, index) => (
         <Song key={track?.track.id} {...track} counter={index} />
       ))}

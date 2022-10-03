@@ -12,10 +12,10 @@ import { SinglePlaylistResponse } from "@/types/pageProps";
 export default function Home() {
   const { data: session } = useSession();
   const { playlistId } = useContext(SongContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [playlistInfomation, setPlaylistInfomation] =
     useState<SinglePlaylistResponse | null>(null);
-    
+
   useEffect(() => {
     if (playlistId === null) return;
     const spotifyApi = new useApi().connectSpotify(session);
@@ -23,7 +23,6 @@ export default function Home() {
       spotifyApi
         .getPlaylist(playlistId)
         .then(({ body }) => {
-          console.log(body.description);
           setPlaylistInfomation(body);
           setIsLoading(false);
         })
@@ -37,7 +36,7 @@ export default function Home() {
     <>
       {isLoading ? (
         <LoadingContainer>
-          <Loading />
+          <Loading width={100} height={100} />
         </LoadingContainer>
       ) : (
         <Container>

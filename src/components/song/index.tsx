@@ -18,12 +18,11 @@ import {
 
 export default function Song({ track, counter, added_at }: PlaylistTrack) {
   const { data: session } = useSession();
-  const { setCurrentTrackId, setIsPlaying, setCurrentSongInformation } =
+  const { setCurrentTrackId, setIsPlaying } =
     useContext(SongContext);
 
   function playSong() {
     setIsPlaying(true);
-    setCurrentTrackId(track.id);
     const spotifyApi = new useApi().connectSpotify(session);
     spotifyApi
       .getMyDevices()
@@ -33,7 +32,7 @@ export default function Song({ track, counter, added_at }: PlaylistTrack) {
             spotifyApi.play({
               uris: [track.uri],
             });
-            setCurrentSongInformation(track);
+            setCurrentTrackId(track.id);
           }
         });
       })

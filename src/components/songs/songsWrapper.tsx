@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 interface ContainerProps {
-  currentSongInfomation: object;
+  isPlaying: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
   padding-top: 20px;
-  padding-bottom: ${({ currentSongInfomation }) =>
-    currentSongInfomation ? "90px" : "0px"};
+  padding-bottom: ${({ isPlaying }) =>
+    isPlaying ? "90px" : "0px"};
 `;

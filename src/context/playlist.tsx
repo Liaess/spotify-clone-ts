@@ -6,15 +6,8 @@ const SongContext = createContext({} as ISongContext);
 
 function SongProvider({ children }: ChildrenProps) {
   const [playlistId, setPlaylistId] = useLocalStorage("playlistId", null);
-  const [currentTrackId, setCurrentTrackId] = useLocalStorage(
-    "currentTrack",
-    null
-  );
-  const [currentSongInfomation, setCurrentSongInformation] = useLocalStorage(
-    "currentSongInfo",
-    null
-  );
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrackId, setCurrentTrackId] = useState(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   return (
     <SongContext.Provider
@@ -23,8 +16,6 @@ function SongProvider({ children }: ChildrenProps) {
         setPlaylistId,
         currentTrackId,
         setCurrentTrackId,
-        currentSongInfomation,
-        setCurrentSongInformation,
         isPlaying,
         setIsPlaying,
       }}

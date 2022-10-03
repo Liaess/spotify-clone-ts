@@ -1,11 +1,11 @@
 import { TailSpin } from "react-loader-spinner";
 import styled from "styled-components";
 
-export default function Loading() {
+export default function Loading({ height, width }:{ height: number, width: number }) {
   return (
     <>
       <Container>
-        <TailSpin color="var(--white-color)" height={100} width={100} />
+        <TailSpin color="var(--white-color)" height={height} width={width} />
       </Container>
     </>
   );

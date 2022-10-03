@@ -1,22 +1,19 @@
-import SongContext from "@/context/playlist";
-import { useContext } from "react";
+//@ts-nocheck
+import { PageProps } from "@/types/pageProps";
 import styled from "styled-components";
 
-export default function Player() {
-  const { currentSongInfomation } = useContext(SongContext);
-  console.log(currentSongInfomation);
-
+export default function Player({ currentSongInfomation }: PageProps) {
   return (
     <Container>
       <PlayerContainer>
         <LeftControls>
           <img
-            src={currentSongInfomation?.album.images[2].url}
+            src={currentSongInfomation?.item?.album?.images[2]?.url}
             alt="currentSongPicture"
           />
           <div>
-            <p>{currentSongInfomation?.name}</p>
-            <p>{currentSongInfomation?.artists[0].name}</p>
+            <p>{currentSongInfomation?.item?.name}</p>
+            <p>{currentSongInfomation?.item?.artists[0]?.name}</p>
           </div>
         </LeftControls>
       </PlayerContainer>

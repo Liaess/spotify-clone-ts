@@ -3,11 +3,10 @@ import Home from "@/components/home";
 import { Main, Container } from "@/styles/music";
 import { getSession } from "next-auth/react";
 import Player from "@/components/player";
-import { useContext } from "react";
-import SongContext from "@/context/playlist";
+import useSongInfo from "@/hooks/useSongInfo";
 
 export default function MainPage() {
-  const { currentSongInfomation } = useContext(SongContext);
+  const currentSongInfomation = useSongInfo();
 
   return (
     <Main>
@@ -15,7 +14,9 @@ export default function MainPage() {
         <Sidebar />
         <Home />
       </Container>
-      {currentSongInfomation && <Player />}
+      {currentSongInfomation && (
+        <Player currentSongInfomation={currentSongInfomation} />
+      )}
     </Main>
   );
 }

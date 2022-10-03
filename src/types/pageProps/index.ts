@@ -11,4 +11,7 @@ export interface PlaylistTrack extends SpotifyApi.PlaylistTrackObject {
 
 export interface PageProps {
   playlistInfomation?: SinglePlaylistResponse | null;
+  currentSongInfomation?: CurrentSong | null;
 }
+
+export interface CurrentSong extends SpotifyApi.CurrentlyPlayingObject {}
