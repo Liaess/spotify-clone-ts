@@ -32,6 +32,7 @@
     "padded-blocks": ["error", "never"],
     "eol-last": ["error", "always"],
     "no-console": "warn",
+    "@next/next/no-server-import-in-page": "off",
     "comma-spacing": [
       "error",
       {
