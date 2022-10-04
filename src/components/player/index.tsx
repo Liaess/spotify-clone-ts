@@ -27,7 +27,7 @@ import { CurrentSong } from "@/types/pageProps";
 
 export default function Player() {
   const { data: session } = useSession();
-  const [volume, setVolume] = useState<number>(1);
+  const [volume, setVolume] = useState<number>(30);
   const [isShuffle, setIsShuffle] = useState<boolean>(false);
   const { isPlaying, setIsPlaying } = useContext(SongContext);
   const spotifyApi = new useApi().connectSpotify(session);
@@ -97,15 +97,6 @@ export default function Player() {
       }
     });
   }
-
-  useEffect(() => {
-    spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
-      if (body?.is_playing) {
-        setIsShuffle(body?.shuffle_state);
-        setVolume(body?.device?.volume_percent);
-      }
-    });
-  }, [spotifyApi]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const adjustVolume = useCallback(
