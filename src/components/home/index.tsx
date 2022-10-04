@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import Center from "./center";
-import Header from "./header";
 import SongContext from "@/context/playlist";
 import { useContext, useEffect, useState } from "react";
 import { useApi } from "@/hooks/useApi";
@@ -8,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import Loading from "../loading";
 import { SinglePlaylistResponse } from "@/types/pageProps";
+import Playlist from "../playlist";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -35,13 +34,10 @@ export default function Home() {
   return (
     <>
       {isLoading ? (
-        <LoadingContainer>
-          <Loading width={100} height={100} />
-        </LoadingContainer>
+        <Loading width={100} height={100} />
       ) : (
         <Container>
-          <Header playlistInfomation={playlistInfomation} />
-          <Center playlistInfomation={playlistInfomation} />
+          <Playlist playlistInfomation={playlistInfomation} />
         </Container>
       )}
     </>
@@ -64,12 +60,4 @@ const Container = styled.div`
   @media (min-width: 1024px) {
     padding-left: 15rem;
   }
-`;
-
-const LoadingContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;

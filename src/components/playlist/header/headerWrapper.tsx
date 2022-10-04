@@ -7,32 +7,6 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   background: ${(props) =>
     `linear-gradient(0deg, rgba(0,0,0,0.9472163865546218) 6%, rgba(0,3,3,0.7987570028011204) 37%, #${props.color} 100%)`};
-  header {
-    position: absolute;
-    right: 0;
-  }
-`;
-
-export const UserInfomation = styled.div`
-  background-color: var(--main-sidebar-color);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-radius: 18px;
-  :hover {
-    opacity: 80%;
-    cursor: pointer;
-  }
-  img {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-  }
-  .icons {
-    height: 1.25rem;
-    width: 1.25rem;
-    margin-right: 7px;
-  }
 `;
 
 export const TitleHolder = styled.div`

@@ -1,22 +1,12 @@
-import LogoutBtn from "@/components/home/logoutBtn";
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Container,
-  UserInfomation,
-  TitleHolder,
-  DescriptionHolder,
-} from "./headerWrapper";
-import { ChevronDownIcon } from "@heroicons/react/outline";
-import { useSession } from "next-auth/react";
 import { PageProps } from "@/types/pageProps";
 import Logo from "@/assets/Icon.png";
 import { arrayDurationToMilliseconds } from "@/utils/time";
 import SongContext from "@/context/playlist";
+import { Container, DescriptionHolder, TitleHolder } from "./headerWrapper";
 
 export default function Header({ playlistInfomation }: PageProps) {
-  const { data: session } = useSession();
   const [color, setColor] = useState<string>("");
-  const [showMenu, setShowMenu] = useState<boolean>(false);
   const { playlistId } = useContext(SongContext);
 
   useEffect(() => {
@@ -25,14 +15,6 @@ export default function Header({ playlistInfomation }: PageProps) {
 
   return (
     <Container color={color}>
-      <header onClick={() => setShowMenu(!showMenu)}>
-        <UserInfomation>
-          <img src={session?.user?.image!} alt="user-logo" />
-          <span>{session?.user?.name}</span>
-          <ChevronDownIcon className="icons" />
-        </UserInfomation>
-        <div>{showMenu && <LogoutBtn />}</div>
-      </header>
       <TitleHolder>
         {playlistInfomation?.images.length > 0 ? (
           <img

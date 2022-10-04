@@ -37,6 +37,7 @@ export default function Player() {
   );
 
   useEffect(() => {
+    if (!currentSongInfomation) return;
     spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
       if (!body) {
         return;

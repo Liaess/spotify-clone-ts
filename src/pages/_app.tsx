@@ -5,10 +5,14 @@ import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Session } from "next-auth";
+import Head from "next/head";
 
-function MyApp({ Component, pageProps }: AppProps<{session: Session}>) {
+function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
   return (
     <>
+      <Head>
+        <title>Spotify</title>
+      </Head>
       <SongProvider>
         <SessionProvider session={pageProps.session}>
           <ToastContainer />

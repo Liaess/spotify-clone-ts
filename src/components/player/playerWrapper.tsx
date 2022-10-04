@@ -15,9 +15,6 @@ export const PlayerContainer = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  .empty {
-    min-width: 300px;
-  }
   .icons {
     height: 1.25rem;
     width: 1.25rem;
@@ -36,6 +33,11 @@ export const PlayerContainer = styled.div`
     :hover {
       transform: scale(1.25);
       transition: all 100ms ease-in-out;
+    }
+  }
+  @media (min-width: 768px) {
+    .empty {
+      min-width: 300px;
     }
   }
 `;
@@ -73,7 +75,7 @@ export const LeftControls = styled.div`
       display: block;
     }
   }
-  @media(max-width: 480px) {
+  @media (max-width: 480px) {
     min-width: 100px;
   }
 `;
@@ -89,7 +91,6 @@ export const CenterControls = styled.div`
 export const RightControls = styled.div`
   display: flex;
   align-items: center;
-  gap: 0px;
   input {
     display: none;
   }
@@ -100,7 +101,7 @@ export const RightControls = styled.div`
       display: block;
     }
   }
-  @media(min-width: 480px) {
+  @media (min-width: 480px) {
     padding-right: 20px;
     gap: 20px;
   }
