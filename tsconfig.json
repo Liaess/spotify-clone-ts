@@ -59,6 +59,6 @@
     "allowJs": true,
     "strict": false
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "src/middleware"],
   "exclude": ["node_modules", "**/__test__/*"]
 }

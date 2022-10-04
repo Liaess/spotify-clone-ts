@@ -24,5 +24,5 @@ export default function useSongInfo() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrackId, session, setIsPlaying]);
 
-  return songInfo;
+  return { songInfo, fetchSongInfo };
 }

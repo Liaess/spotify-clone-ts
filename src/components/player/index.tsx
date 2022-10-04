@@ -1,5 +1,4 @@
 //@ts-nocheck
-import { PlayerProps } from "@/types/pageProps";
 import { useCallback, useContext, useEffect, useState } from "react";
 import {
   Container,
@@ -22,20 +21,41 @@ import { debounce } from "lodash";
 import SongContext from "@/context/playlist";
 import { useApi } from "@/hooks/useApi";
 import { useSession } from "next-auth/react";
+import useSongInfo from "@/hooks/useSongInfo";
+import { delay } from "@/utils/delay";
+import { CurrentSong } from "@/types/pageProps";
 
-export default function Player({ currentSongInfomation }: PlayerProps) {
+export default function Player() {
   const { data: session } = useSession();
-  const [volume, setVolume] = useState(50);
-  const [isShuffle, setIsShuffle] = useState(false);
+  const [volume, setVolume] = useState<number>(1);
+  const [isShuffle, setIsShuffle] = useState<boolean>(false);
   const { isPlaying, setIsPlaying } = useContext(SongContext);
   const spotifyApi = new useApi().connectSpotify(session);
+  const { songInfo: currentSongInfomation, fetchSongInfo } = useSongInfo();
+  const [currentSong, setCurrentSong] = useState<CurrentSong | null>(
+    currentSongInfomation
+  );
+
+  useEffect(() => {
+    spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
+      if (!body) {
+        return;
+      }
+    });
+    setCurrentSong(currentSongInfomation);
+    const interval = setTimeout(() => {
+      const newSong = fetchSongInfo();
+      setCurrentSong(newSong);
+    }, currentSongInfomation?.item.duration_ms - currentSongInfomation?.progress_ms + 1000);
+    return () => clearTimeout(interval);
+  }, [currentSongInfomation, fetchSongInfo, spotifyApi]);
 
   function toggleSong() {
     spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
-      if (body?.is_playing) {
+      if (body?.is_playing && isPlaying) {
         spotifyApi.pause();
         setIsPlaying(false);
-      } else {
+      } else if (!body?.is_playing && body?.device?.is_active) {
         spotifyApi.play();
         setIsPlaying(true);
       }
@@ -47,42 +67,51 @@ export default function Player({ currentSongInfomation }: PlayerProps) {
       if (body?.shuffle_state) {
         spotifyApi.setShuffle(false);
         setIsShuffle(false);
+      } else if (!body?.shuffle_state && body?.device?.is_active) {
+        spotifyApi.setShuffle(true);
+        setIsShuffle(true);
       }
     });
   }
 
   function skipToNext() {
     spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
-      if (body.is_playing) {
+      if (body?.is_playing) {
         spotifyApi.skipToNext();
+        delay(1500).then(() => {
+          const newSong = fetchSongInfo();
+          setCurrentSong(() => newSong);
+        });
       }
     });
   }
 
   function skipToPrevious() {
     spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
-      if (body.is_playing) {
+      if (body?.is_playing) {
         spotifyApi.skipToPrevious();
+        delay(1500).then(() => {
+          const newSong = fetchSongInfo();
+          setCurrentSong(() => newSong);
+        });
       }
     });
   }
 
   useEffect(() => {
     spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
-      setIsShuffle(body?.shuffle_state);
+      if (body?.is_playing) {
+        setIsShuffle(body?.shuffle_state);
+        setVolume(body?.device?.volume_percent);
+      }
     });
   }, [spotifyApi]);
 
-  useEffect(() => {
-    if (volume > 100) setVolume(100);
-    if (volume < 0) setVolume(0);
-  }, [volume]);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const adjustVolume = useCallback( 
+  const adjustVolume = useCallback(
     debounce((volume) => {
       spotifyApi.setVolume(volume);
-    }, 1000),
+    }, 500),
     []
   );
 
@@ -96,17 +125,17 @@ export default function Player({ currentSongInfomation }: PlayerProps) {
   return (
     <Container>
       <PlayerContainer>
-        {currentSongInfomation === null ? (
+        {currentSong === null ? (
           <div className="empty"></div>
         ) : (
           <LeftControls>
             <img
-              src={currentSongInfomation?.item?.album?.images[2]?.url}
+              src={currentSong?.item?.album?.images[2]?.url}
               alt="currentSongPicture"
             />
             <div>
-              <p>{currentSongInfomation?.item?.name}</p>
-              <p>{currentSongInfomation?.item?.artists[0]?.name}</p>
+              <p>{currentSong?.item?.name}</p>
+              <p>{currentSong?.item?.artists[0]?.name}</p>
             </div>
           </LeftControls>
         )}
@@ -130,10 +159,7 @@ export default function Player({ currentSongInfomation }: PlayerProps) {
           <ReplyIcon className="icons" />
         </CenterControls>
         <RightControls>
-          <VolumeOffIcon
-            onClick={() => volume > 0 && setVolume(Number(volume - 10))}
-            className="icons"
-          />
+          <VolumeOffIcon className="icons" />
           <input
             type="range"
             onChange={(event) => setVolume(Number(event.target.value))}
@@ -141,10 +167,7 @@ export default function Player({ currentSongInfomation }: PlayerProps) {
             min={0}
             max={100}
           />
-          <VolumeUpIcon
-            onClick={() => volume < 100 && setVolume(Number(volume + 10))}
-            className="icons"
-          />
+          <VolumeUpIcon className="icons" />
         </RightControls>
       </PlayerContainer>
     </Container>

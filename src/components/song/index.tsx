@@ -5,7 +5,6 @@ import { singleDurationToMilliseconds } from "@/utils/time";
 import moment from "moment";
 import { useSession } from "next-auth/react";
 import { useContext } from "react";
-import { toast } from "react-toastify";
 import {
   Container,
   ImageHolder,
@@ -29,22 +28,17 @@ export default function Song({
     const spotifyApi = new useApi().connectSpotify(session);
     const songsToPlay = allSongs.slice(counter);
     const uris = songsToPlay.map((song) => song.track.uri);
-    spotifyApi
-      .getMyDevices()
-      .then(({ body }) => {
-        body.devices.forEach((device) => {
-          if (device.is_active && spotifyApi.getAccessToken()) {
-            spotifyApi.play({
-              uris,
-            });
-            setCurrentTrackId(track.id);
-            setIsPlaying(true);
-          }
-        });
-      })
-      .catch((_err) => {
-        toast("This app just help you, make sure to have a device playing!");
+    spotifyApi.getMyDevices().then(({ body }) => {
+      body.devices.forEach((device) => {
+        if (device.is_active && spotifyApi.getAccessToken()) {
+          spotifyApi.play({
+            uris,
+          });
+          setCurrentTrackId(track.id);
+          setIsPlaying(true);
+        }
       });
+    });
   }
 
   return (
