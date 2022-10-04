@@ -98,6 +98,14 @@ export default function Player() {
     });
   }
 
+  useEffect(() => {
+    spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
+      if (body?.is_playing) {
+        setIsShuffle(body?.shuffle_state);
+      }
+    });
+  }, [spotifyApi]);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const adjustVolume = useCallback(
     debounce((volume) => {
