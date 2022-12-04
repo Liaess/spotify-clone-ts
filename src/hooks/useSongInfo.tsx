@@ -13,8 +13,6 @@ export default function useSongInfo() {
     const spotifyApi = new useApi().connectSpotify(session);
     spotifyApi.getMyCurrentPlayingTrack().then(({ body }) => {
       setSongInfo(body);
-    });
-    spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
       setIsPlaying(body?.is_playing);
     });
   }

@@ -22,8 +22,8 @@ import SongContext from "@/context/playlist";
 import { useApi } from "@/hooks/useApi";
 import { useSession } from "next-auth/react";
 import useSongInfo from "@/hooks/useSongInfo";
-import { delay } from "@/utils/delay";
 import { CurrentSong } from "@/types/pageProps";
+import { toast } from "react-toastify";
 
 export default function Player() {
   const { data: session } = useSession();
@@ -78,8 +78,7 @@ export default function Player() {
   function skipToNext() {
     spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
       if (body?.is_playing) {
-        spotifyApi.skipToNext();
-        delay(1500).then(() => {
+        spotifyApi.skipToNext().then(() => {
           const newSong = fetchSongInfo();
           setCurrentSong(() => newSong);
         });
@@ -90,8 +89,7 @@ export default function Player() {
   function skipToPrevious() {
     spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
       if (body?.is_playing) {
-        spotifyApi.skipToPrevious();
-        delay(1500).then(() => {
+        spotifyApi.skipToPrevious().then(() => {
           const newSong = fetchSongInfo();
           setCurrentSong(() => newSong);
         });
@@ -110,7 +108,13 @@ export default function Player() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const adjustVolume = useCallback(
     debounce((volume) => {
-      spotifyApi.setVolume(volume);
+      spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
+        if (body?.device?.type !== "Computer") {
+          toast.error("Volume control is not supported on current device!");
+        } else {
+          spotifyApi.setVolume(volume);
+        }
+      });
     }, 500),
     []
   );

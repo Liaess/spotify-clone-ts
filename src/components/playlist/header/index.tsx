@@ -30,12 +30,23 @@ export default function Header({ playlistInfomation }: PageProps) {
         )}
         <DescriptionHolder>
           <h1>PLAYLIST</h1>
-          <h2>{playlistInfomation?.name}</h2>
-          <span>{playlistInfomation?.description}</span>
+          <h2
+            dangerouslySetInnerHTML={{
+              __html: playlistInfomation?.name,
+            }}
+          ></h2>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: playlistInfomation?.description,
+            }}
+          ></span>
           <p>
-            <span className="user">
-              {playlistInfomation?.owner.display_name}
-            </span>
+            <span
+              className="user"
+              dangerouslySetInnerHTML={{
+                __html: playlistInfomation?.owner.display_name,
+              }}
+            ></span>
             <span className="dot"> &#9679; </span>
             {playlistInfomation?.followers.total}
             {playlistInfomation?.followers.total > 1 ? "  likes" : "  like"}
